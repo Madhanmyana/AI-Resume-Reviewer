@@ -2,6 +2,7 @@ from openai import OpenAI
 import openai
 import os
 from dotenv import load_dotenv
+from fastapi import HTTPException
 
 from prompts.resume_review_prompt import prompt
 
@@ -16,7 +17,9 @@ def review_response(resume_text:str):
     try:
         response=client.responses.create(model="openai/gpt-oss-20b",input=final_prompt)
         return response.output_text
-    except openai.error.apierror as e:
-        print(f"openai returned an api error:"{e})
-    except openai.error.apiconnectionerror as e:
-        print(f"openai api request failed to connect:"{e})
+    
+    except openai.APIError:
+        raise HTTPException(status_code=500,detail='AI service is temporarily unavailable. Please try again later.')
+
+    except openai.APIConnectionError:
+        raise HTTPException(status_code=500,detail='connection error, check internet')

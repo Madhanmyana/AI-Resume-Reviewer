@@ -5,3 +5,4 @@ uvicorn
 python-multipart
 pymupdf
 python-dotenv
+slowapi
