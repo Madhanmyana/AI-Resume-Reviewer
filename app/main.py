@@ -1,3 +1,4 @@
+import os
 from fastapi import FastAPI
 from slowapi.errors import RateLimitExceeded
 from slowapi.extension import _rate_limit_exceeded_handler
@@ -9,10 +10,16 @@ from limiter import limiter
 
 app = FastAPI()
 
-# Add CORS middleware to allow the frontend to communicate with the API
+origins = ["http://localhost:5173","https://ai-resume-reviewer.vercel.app"]
+
+frontend_url = os.environ.get("FRONTEND_URL")
+
+if frontend_url:
+    origins.append(frontend_url)
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "https://ai-resume-reviewer.vercel.app"],
+    allow_origins=origins,
     allow_methods=["*"],
     allow_headers=["*"],
 )
