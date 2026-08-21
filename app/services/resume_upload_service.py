@@ -1,6 +1,6 @@
 from fastapi import UploadFile, HTTPException
-import pypdf
-import io
+import pymupdf
+
 
 async def upload_file(resume:UploadFile):
 
@@ -13,26 +13,30 @@ async def upload_file(resume:UploadFile):
         raise HTTPException(status_code=400,detail="Uploaded PDF is empty.")
 
     if not pdf_bytes.startswith(b"%PDF-"):
-        raise HTTPException(status_code=400,detail="Invalid PDF file.")
+            raise HTTPException(status_code=400,detail="Invalid PDF file.")
 
     if len(pdf_bytes)>5242880:
         raise HTTPException(status_code=400,detail="PDF file size must not exceed 5 MB.")
 
     try:
-        reader = pypdf.PdfReader(io.BytesIO(pdf_bytes))
-    except Exception:
+        doc=pymupdf.open(stream=pdf_bytes,filetype="pdf")
+
+    except pymupdf.FileDataError:
         raise HTTPException(status_code=400,detail="Invalid or corrupted PDF file.")
 
     text = ""
-    no_of_pages = len(reader.pages)
+    no_of_pages=0
 
-    if no_of_pages > 10:
-        raise HTTPException(status_code=400,detail="Resume must not exceed 10 pages.")
+    for page in doc:
 
-    for page in reader.pages:
-        extracted = page.extract_text()
-        if extracted:
-            text += extracted + "\n"
+        if no_of_pages>10:
+            raise HTTPException(status_code=400,detail="Resume must not exceed 10 pages.")
+        
+        text+=page.get_text()
+        text+="\n"
+        no_of_pages+=1
+
+    doc.close()
 
     text = text.strip()
     if not text:
