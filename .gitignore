@@ -1,9 +1,30 @@
+# Environment
 .env
-.coverage
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
 .venv/
-app/__pycache__/
-app/api/__pycache__
-app/services/__pycache__
-app/prompts/__pycache__
-app/schemas/__pycache__
-app/test/__pycache__
+
+# Testing
+.coverage
+.pytest_cache/
+htmlcov/
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Misc
+app/package-lock.json
