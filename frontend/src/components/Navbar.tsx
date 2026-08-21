@@ -1,0 +1,1 @@
+export default function Navbar({onNewReview}:{onNewReview:()=>void}){return <header className="navbar"><div className="brand">Resume Reviewer</div><div style={{ flex: 1 }}></div><button className="button button-outline" onClick={onNewReview}>New Review</button></header>}

@@ -1,0 +1,1 @@
+export default function LoadingScreen({message}:{message:string}){return <section className="loading-screen" aria-live="polite"><div className="eyebrow">Analyzing resume</div><h2>Reading structure, language, impact, and role alignment.</h2><div className="loading-line"><span/></div><p>{message}</p></section>}
