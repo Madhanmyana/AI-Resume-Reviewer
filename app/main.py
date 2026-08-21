@@ -12,7 +12,7 @@ app = FastAPI()
 # Add CORS middleware to allow the frontend to communicate with the API
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=["http://localhost:5173", "https://ai-resume-reviewer.vercel.app"],
     allow_methods=["*"],
     allow_headers=["*"],
 )
