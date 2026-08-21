@@ -50,6 +50,7 @@ export default function App() {
   return (
     <div className="app">
       <Navbar
+        showNewReview={!!data}
         onNewReview={() => {
           setData(null);
           setLoading(false);
