@@ -37,6 +37,7 @@ Score the resume out of 100 points across these four dimensions:
 - EVIDENCE INTEGRITY RULE (CRITICAL): Never invent, estimate, assume, or extrapolate metrics, users, percentages, or achievements. Every factual claim and number in an improved bullet MUST come directly from the original resume. 
 - BULLET REWRITES: If a bullet lacks measurable evidence, preserve that limitation in your rewrite by using placeholders (e.g., "Increased efficiency by [Quantifiable Metric] by implementing..."). DO NOT fabricate a result.
 - SCHEMA COMPLIANCE: Use the exact field names defined in the schema. Do not rename, merge, split, or create alternative fields. Ensure arrays and booleans are used exactly where specified.
+- LENGTH CONSTRAINTS (CRITICAL): For arrays like strengths and weaknesses, you MUST strictly output a minimum of 3 and a maximum of 4 items. Generating 5 or more items will cause validation failures.
 </rules>
 
 <schema>
@@ -52,10 +53,10 @@ Your JSON output must strictly adhere to the following structure and types. Pay 
   },
   "executive_summary": "string (2-3 sentence overview evaluating overall market-readiness)",
   "strengths": [
-    "string (3-4 specific elements currently working well)"
+    "string (EXACTLY 3 to 4 specific elements currently working well)"
   ],
   "weaknesses": [
-    "string (3-4 primary flaws, categorized by formatting, language, or lack of evidence)"
+    "string (EXACTLY 3 to 4 primary flaws, categorized by formatting, language, or lack of evidence)"
   ],
   "ATS_compatibility_suggestions": {
     "parsing_safety": "string (File type, font choice, header formatting, and layout risks)",
