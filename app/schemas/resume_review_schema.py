@@ -39,8 +39,8 @@ class ResumeReviewResponse(BaseModel):
     overall_score:int=Field(...,ge=0,le=100)
     category_scores:CategoryScores
     executive_summary: str
-    strengths:list[str]=Field(min_length=3,max_length=4)
-    weaknesses:list[str]=Field(min_length=3,max_length=4)
+    strengths:list[str]=Field(min_length=3,max_length=10)
+    weaknesses:list[str]=Field(min_length=3,max_length=10)
     ATS_compatibility_suggestions: ATSSuggestions
     prioritized_action_plan: PrioritizedActionPlan
     bullet_transformations:list[BulletTransformation]=Field(min_length=3)
